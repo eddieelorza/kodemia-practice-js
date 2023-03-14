@@ -7,18 +7,31 @@ let arrayPeople = []
 addButton.addEventListener('click', () =>{
     let inputPeople = document.querySelectorAll('#list-input .input-element')
     let objectPeople = {}
+    let inputAlert
+    let removeAlert 
+    let similarInput 
     inputPeople.forEach((item) =>{
             let text = item.name;
             let value = item.value;
             //crear un objeto con name 
             objectPeople[text] = value
             console.log(objectPeople)
-
+            console.log(item.value)
+             inputAlert = !item.value ? item.classList.add("is-invalid") : item.classList.add("is-valid")
+             removeAlert = item.value ? item.classList.remove("is-invalid") : item.classList.remove("is-valid")
         
     })
-    arrayPeople.push(objectPeople)
-    getPeople(arrayPeople)
-    console.log(arrayPeople)
+
+    if(objectPeople.name && objectPeople.lastName && objectPeople.email){
+        arrayPeople.push(objectPeople)
+        getPeople(arrayPeople)
+    }else {
+        alert("Favor de llenar todos los campos")
+    }
+
+
+
+ 
 })
 
 let btnDelete 
@@ -44,16 +57,12 @@ const getPeople = (arr) =>{
         let lastNames = document.createTextNode(` ${lastName}`)
         let emails = document.createTextNode(` ${email}`)
         let deleteText = document.createTextNode(`Eliminar`)
-
-
         //dentro de cada td asignamos los textos
         tdName.appendChild(names)
         tdLastName.appendChild(lastNames)
         tdEmail.appendChild(emails)
         btnDelete.appendChild(deleteText)
         tdButton.appendChild(btnDelete)
-        
- 
         //
         trObject.append(tdName,tdLastName,tdEmail,tdButton)
         //
